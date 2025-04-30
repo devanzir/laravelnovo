@@ -56,7 +56,6 @@ class ProductController extends Controller
      */
     public function store(ProductsRequest $request)
     {
-      # $images = $request->file('photos');
 
         $data = $request->all();
         $categories = $request->get('categories',null);
