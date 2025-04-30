@@ -8,7 +8,7 @@ use App\Http\Requests\StoreRequest;
 use App\Traits\UploadTrait;
 use Illuminate\Support\Facades\Storage;
 
-#use App\Store;
+
 
 class StoreController extends Controller
 {
@@ -24,8 +24,6 @@ class StoreController extends Controller
     
     return view('admin.stores.index',compact('store'));
     }
-
-
     public function create()
     {
       
@@ -40,8 +38,6 @@ class StoreController extends Controller
     $user = auth()->user();
 
     if ($request->hasFile('logo')) {
-        // Adicione esta linha para depuração
-    #dd($request->file('logo'));
 
         $data['logo'] = $this->imageUpload([$request->file('logo')]);
     }
@@ -51,9 +47,6 @@ class StoreController extends Controller
     flash('Loja Criada com sucesso')->success();
     return redirect()->route('admin.stores.index');
 }
-
-
-
     public function edit($store)
     {
         $store = \App\Store::find($store);
@@ -61,11 +54,8 @@ class StoreController extends Controller
         return view('admin.stores.edit', compact('store'));
     }
 
-
     public function update(StoreRequest $request, $store)
     {
-        #dd($request->all());
-        
         $data = ($request->all());
         $store =\App\Store::find($store);
 
@@ -76,7 +66,6 @@ class StoreController extends Controller
             $data['logo'] = $this->imageUpload([$request->file('logo')]);
         }
 
-       
         $store->update($data);
         
         flash('Loja Atualizada com sucesso')->success();
@@ -93,7 +82,6 @@ class StoreController extends Controller
 
     }
 
-    // Adicione este método no `StoreController`
 private function imageUpload($images)
 {
     $uploadedImages = [];
@@ -112,6 +100,5 @@ private function imageUpload($images)
 
     return $uploadedImages[0];
 }
-
 
 }
