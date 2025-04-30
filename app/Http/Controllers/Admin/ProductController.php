@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-#use Illuminate\Http\Request;
 use App\Product;
 use App\Http\Requests\ProductsRequest;
 use Illuminate\Support\Facades\App;
@@ -145,12 +144,10 @@ public function destroy($product)
     $product = $this->product->find($product);
 
     if ($product) {
-        // Deleta as fotos associadas ao produto
         DB::table('product_photos')->where('product_id', $product->id)->delete();
 
         DB::table('category_product')->where('product_id', $product->id)->delete();
 
-        // Deleta o produto
         $product->delete();
 
         flash('Produto Deletado com sucesso')->success();
@@ -164,11 +161,7 @@ public function destroy($product)
 
     private function imageUpload(array $images, $imageColumn = 'photos')
     {
-        #$images = $request->file('photos');
         $uploadedImages = [];
-
-
-        #UploadedFile::class;
 
         foreach($images as $image){
             if(!$image->isValid()) {
