@@ -12,8 +12,6 @@ class CheckoutController extends Controller
         if (!auth()->check()) {
             return redirect()->route('login');
         }
-
-        // Criar a sessão PagSeguro
         $this->makePagSeguroSession();
 
         return view('checkout', [
